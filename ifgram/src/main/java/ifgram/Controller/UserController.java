@@ -1,6 +1,8 @@
 package ifgram.Controller;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,5 +13,15 @@ public class UserController {
     @GetMapping
     public String getUser() {
         return "get user was called";
+    }
+
+    @PostMapping
+    public String postUser(){
+        return "Chame o endpoint como um POST";
+    }
+
+    @DeleteMapping 
+    public String deleteUser(){
+        return "Chame o endpoint como um DELETE";
     }
 }
