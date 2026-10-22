@@ -1,62 +1,70 @@
 package ifgram.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import ifgram.Model.User;
 import ifgram.Repository.UserRepository;
 import ifgram.dto.UserRequest;
 import ifgram.dto.UserResponse;
 
-@Service
+@Service 
 public class UserService {
 
-    private final UserRepository userRepository;
+    private final UserRepository repository;
 
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserService(UserRepository repository){
+        this.repository = repository;
     }
 
-    public List<UserResponse> listarUsuarios() {
-        return userRepository.findAll()
-                .stream()
-                .map(UserResponse::from)
-                .toList();
-    }
-
-    public UserResponse criarUsuario(UserRequest request) {
-
-        if (userRepository.existsByEmail(request.email())) {
-            throw new RuntimeException("Já existe um usuário com esse email.");
+    @Transactional 
+    public UserResponse criar(UserRequest request) throws Exception {
+        if(repository.existsByEmail(request.email())){
+            throw new Exception("Email já cadastrado: " + request.email());
         }
-
-        User user = new User(
-                request.nome(),
-                request.email()
-        );
-
-        User usuarioSalvo = userRepository.save(user);
+        User usuarioNovo = new User(request.nome(), request.email());
+        User usuarioSalvo = repository.save(usuarioNovo);
 
         return UserResponse.from(usuarioSalvo);
     }
 
-    public UserResponse buscarPorEmail(String email) {
-
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() ->
-                        new RuntimeException("Usuário não encontrado.")
-                );
-
-        return UserResponse.from(user);
+    public List<UserResponse> buscarTodosUsuarios(){
+        List<User> listaUsuarios = repository.findAll();
+        List<UserResponse> listaUsuariosResponse = new ArrayList<>();
+        for(User user : listaUsuarios) {
+            UserResponse userReponse = new UserResponse(
+                user.getId(),
+                user.getNome(),
+                user.getEmail()
+            );
+            listaUsuariosResponse.add(userReponse);
+        }
+        return listaUsuariosResponse;
     }
 
-    public void deletarUsuario(Long id) {
+    public UserResponse atualizarUsuario(UserRequest request) throws Exception {
+        Optional<User> usuario = repository.findByEmail(request.email());
+        if(usuario.isEmpty()){
+            throw new Exception("usuário não existe na base de dados.");
+        }
+        User usuarioSalvo = usuario.get();
+        usuarioSalvo.setNome(request.nome());
+        repository.save(usuarioSalvo);
 
-        if (!userRepository.existsById(id)) {
-            throw new RuntimeException("Usuário não encontrado.");
+        return UserResponse.from(usuarioSalvo);
+    }
+
+    public void deletarUsuario(UserRequest request) throws Exception {
+        Optional<User> usuario = repository.findByEmail(request.email());
+        if(usuario.isEmpty()) {
+            throw new Exception("Usuário não encontrado!");
         }
 
-        userRepository.deleteById(id);
+        User usuarioDeletar = usuario.get();
+        repository.delete(usuarioDeletar);
     }
 }

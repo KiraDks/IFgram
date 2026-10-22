@@ -1,15 +1,18 @@
 package ifgram.dto;
 
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 public record UserRequest(
-
-    @NotBlank(message = "O nome é obrigatório")
+    @Email
+    String email,
+    
+    @Size(min=3)
+    @NotNull 
     String nome,
-
-    @NotBlank(message = "O email é obrigatório")
-    @Email(message = "Informe um email válido")
-    String email
-
+    
+    @Size(min=4)
+    @NotNull 
+    String senha
 ) {}

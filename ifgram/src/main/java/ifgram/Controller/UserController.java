@@ -1,58 +1,49 @@
 package ifgram.Controller;
 
 import java.util.List;
-
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ifgram.Service.UserService;
 import ifgram.dto.UserRequest;
 import ifgram.dto.UserResponse;
-import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("user")
 public class UserController {
 
-    private final UserService userService;
+    public final UserService service;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
+    public UserController(UserService service){
+        this.service = service;
     }
+
 
     @GetMapping
-    public List<UserResponse> getUsers() {
-        return userService.listarUsuarios();
+    public List<UserResponse> getUsers(){
+        List<UserResponse> listaUsuarios = service.buscarTodosUsuarios();
+        return listaUsuarios;        
     }
 
-    @PostMapping
-    public ResponseEntity<UserResponse> postUser(
-            @Valid @RequestBody UserRequest request) {
-
-        UserResponse response = userService.criarUsuario(request);
-
-        return ResponseEntity.ok(response);
+    @PostMapping 
+    public UserResponse postUser(UserRequest request) throws Exception {
+        UserResponse userResponse = service.criar(request);
+        return userResponse;
     }
 
-    @GetMapping("/email/{email}")
-    public UserResponse getUserByEmail(
-            @PathVariable String email) {
-
-        return userService.buscarPorEmail(email);
+    @PutMapping
+    public UserResponse UpdateUser(UserRequest request) throws Exception {
+        return service.atualizarUsuario(request);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(
-            @PathVariable Long id) {
-
-        userService.deletarUsuario(id);
-
-        return ResponseEntity.noContent().build();
+    @DeleteMapping 
+    public String deleteUser(UserRequest request) throws Exception {
+        service.deletarUsuario(request);
+        return "Usuário deletado com sucesso!";
     }
+
 }
