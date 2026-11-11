@@ -8,12 +8,13 @@ import java.util.List;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
 
-    List<PostRepository> findByAutorId(Long autorId);
+    List<Post> findByAutorId(Long autorId);
 
-    List<PostRepository> findByLegendaContainingIgnoreCase(String trecho);
+    List<Post> findByLegendaContainingIgnoreCase(String trecho);
 
     long countByAutorId(Long autorId);
 
     @Query("SELECT p FROM Post p ORDER BY p.criadoEm DESC")
     List<Post> buscarFeed();
+
 }

@@ -1,6 +1,6 @@
-package br.edu.ifpb.ifgram.dto;
+package ifgram.dto;
 
-import br.edu.ifpb.ifgram.model.Post;
+import ifgram.Model.Post;
 import java.time.LocalDateTime;
 
 public record PostResponse(
@@ -16,6 +16,7 @@ public record PostResponse(
 
     public static PostResponse from(Post post) {
         return new PostResponse(
+
             post.getId(),
             post.getImagemUrl(),
             post.getLegenda(),

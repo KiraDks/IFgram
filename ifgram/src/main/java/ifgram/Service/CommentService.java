@@ -3,7 +3,7 @@ package ifgram.Service;
 
 import ifgram.dto.CommentRequest;
 import ifgram.dto.CommentResponse;
-import ifgram.model.Comment;
+import ifgram.Model.Comment;
 import ifgram.Model.Post;
 import ifgram.Model.User;
 import ifgram.Repository.CommentRepository;
