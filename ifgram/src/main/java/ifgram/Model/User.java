@@ -7,8 +7,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-@Entity 
-@Table(name = "tb_user")
+@Entity
+@Table(name = "usuario")
 public class User {
 
     @Id
@@ -18,34 +18,34 @@ public class User {
     @Column(nullable = false, length = 120)
     private String nome;
 
-    @Column(nullable = true, unique = true)
+    @Column(unique = true)
     private String email;
+
     public User() {
     }
 
-    public User(String nome, String email){
+    public User(String nome, String email) {
         this.nome = nome;
         this.email = email;
     }
 
-    public Long getId(){
+    public Long getId() {
         return this.id;
     }
 
-    public String getNome(){
+    public String getNome() {
         return this.nome;
     }
 
-    public String getEmail(){
+    public String getEmail() {
         return this.email;
     }
 
-    public void setNome(String nome){
+    public void setNome(String nome) {
         this.nome = nome;
     }
 
-    public void setEmail(String email){
+    public void setEmail(String email) {
         this.email = email;
     }
-
 }

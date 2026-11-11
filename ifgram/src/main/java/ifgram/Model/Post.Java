@@ -1,49 +1,55 @@
-package br.edu.ifpb.ifgram.model;
-
+package ifgram.Model;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name ="tb_post" )
+@Table(name = "tb_post")
 public class Post {
 
-   @Id
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-   @Column(nullable = false)
-   private String imagemUrl;
+    @Column(nullable = false)
+    private String imagemUrl;
 
-   @Column(length = 300)
-   private String legenda;
+    @Column(length = 300)
+    private String legenda;
 
-   private LocalDateTime criadoEm;
+    private LocalDateTime criadoEm;
 
-   public Post(String imagemUrl, String legenda) {
-      this.criadoEm = LocalDateTime.now();
-   }
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user_id")
+    private User autor;
 
-   @ManyToOne(optional = false)
-   @JoinColumn(name = "user_id")
-   private String autor;
+    public Post() {
+    }
 
-   public Post() {
-   }
-   public Post(String imagemUrl,String legenda , String autor ) {
-   this.imagemUrl = imagemUrl;
-   this.legenda = legenda;
-   this.autor = autor;
-   }
-   public String getImagemUrl() {
-      return imagemUrl;
-   }
-   public String getlegenda() {
-      return legenda;
-   }
-   public String getautor() {
-      return autor;
-   }
+    public Post(String imagemUrl, String legenda, User autor) {
+        this.imagemUrl = imagemUrl;
+        this.legenda = legenda;
+        this.autor = autor;
+        this.criadoEm = LocalDateTime.now();
+    }
 
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getImagemUrl() {
+        return this.imagemUrl;
+    }
+
+    public String getLegenda() {
+        return this.legenda;
+    }
+
+    public LocalDateTime getCriadoEm() {
+        return this.criadoEm;
+    }
+
+    public User getAutor() {
+        return this.autor;
+    }
 }
