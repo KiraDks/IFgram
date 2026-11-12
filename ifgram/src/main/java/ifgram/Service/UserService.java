@@ -1,4 +1,4 @@
-package ifgram.Service;
+package ifgram.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,10 +7,10 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import ifgram.Model.User;
-import ifgram.Repository.UserRepository;
 import ifgram.dto.UserRequest;
 import ifgram.dto.UserResponse;
+import ifgram.model.User;
+import ifgram.repository.UserRepository;
 
 @Service 
 public class UserService {

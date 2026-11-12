@@ -1,4 +1,4 @@
-package ifgram.Model;
+package ifgram.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

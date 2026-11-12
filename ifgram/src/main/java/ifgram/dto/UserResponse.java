@@ -1,6 +1,6 @@
 package ifgram.dto;
 
-import ifgram.Model.User;
+import ifgram.model.User;
 
 public record UserResponse(
     Long id,

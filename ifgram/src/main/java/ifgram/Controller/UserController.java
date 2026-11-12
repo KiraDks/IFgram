@@ -1,6 +1,7 @@
-package ifgram.Controller;
+package ifgram.controller;
 
 import java.util.List;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,9 +9,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ifgram.Service.UserService;
 import ifgram.dto.UserRequest;
 import ifgram.dto.UserResponse;
+import ifgram.service.UserService;
 
 @RestController
 @RequestMapping("user")

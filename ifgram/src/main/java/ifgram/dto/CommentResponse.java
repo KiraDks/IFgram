@@ -1,7 +1,8 @@
 package ifgram.dto;
 
-import ifgram.Model.Comment;
 import java.time.LocalDateTime;
+
+import ifgram.model.Comment;
 
 public record CommentResponse(
 

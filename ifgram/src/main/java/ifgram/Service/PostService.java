@@ -1,19 +1,19 @@
 
-package ifgram.Service;
+package ifgram.service;
 
-import ifgram.dto.PostRequest;
-import ifgram.dto.PostResponse;
-import ifgram.Model.Post;
-import ifgram.Model.User;
-import ifgram.Repository.PostRepository;
-import ifgram.Repository.UserRepository;
+import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
+import ifgram.dto.PostRequest;
+import ifgram.dto.PostResponse;
+import ifgram.model.Post;
+import ifgram.model.User;
+import ifgram.repository.PostRepository;
+import ifgram.repository.UserRepository;
 
 @Service
 public class PostService {

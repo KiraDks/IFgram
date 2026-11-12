@@ -1,7 +1,8 @@
 package ifgram.dto;
 
-import ifgram.Model.Post;
 import java.time.LocalDateTime;
+
+import ifgram.model.Post;
 
 public record PostResponse(
 
@@ -16,7 +17,6 @@ public record PostResponse(
 
     public static PostResponse from(Post post) {
         return new PostResponse(
-
             post.getId(),
             post.getImagemUrl(),
             post.getLegenda(),
